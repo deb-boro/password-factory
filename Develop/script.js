@@ -4,7 +4,7 @@ var passwordLength = function () {
   var lengthPassword = window.prompt(
     'Please enter the length of password you want to generate (it should be between 8 characters and no more than 128 characters). e.g. for password length 9 characters ENTER "9" in the textbox and PRESS "OK".',
   )
-  debugger
+
   if (
     lengthPassword < 8 ||
     lengthPassword > 128 ||
@@ -15,13 +15,16 @@ var passwordLength = function () {
     alert('Please provide a valid input')
     passwordLength()
   }
+  return lengthPassword
 }
+
 //2. will there be lowercase, uppercase, numbers and special characters ?
 
 var characterType = function () {
   var lowerCase = window.prompt(
     'Do you want to include lowercase in your password e.g. abcdefgh- answer yes or no',
   ).toLowerCase
+
   var upperCase = window.prompt(
     'Do you want to include uppercase in your password e.g. ABCDEFGH - answer YES/yes or NO/no',
   ).toLowerCase
@@ -33,19 +36,10 @@ var characterType = function () {
   ).toLowerCase
 }
 
-var passwordGenerator = function () {
-  for (var i = 0; i < passwordLength.length; i++) {
-    var character = ''
-    charactersInScope =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,-./:;<=>?@[]^_`{|}~'
-    character += charactersInScope.charAt(
-      Math.floor(Math.random() * charactersInScope.length),
-    )
-  }
-}
 
-var verifyForNumeric = function () {
-  var password = passwordGenerator()
+
+
+var verifyForNumeric = function (password) {
   for (var i = 0; i < password.length; i++) {
     eachCharacter = password.charAt(i)
     if (!isNaN(eachCharacter) == true) {
@@ -54,100 +48,80 @@ var verifyForNumeric = function () {
   }
 }
 
-var verifyForUpperCase = function () {}
+var verifyForUpperCase = function (password) {
 
-//using https://net-comber.com/charset.html to generate Random Numbers
-
-var randomNumber = function () {
-  return String.fromCharCode(Math.floor(Math.random() * 10 + 48))
-}
-var randomlowerCaseLetters = function () {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 97))
-}
-var randomUpperCaseLetters = function () {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 65))
-}
-
-var randomSpecialCharacter = function () {
-  var specialCharacterList = '!#$%&()*+,-./:;<=>?@[]^_`{|}~'
-  var specialCharacter = specialCharacterList.charAt(
-    Math.floor(Math.random() * specialCharacterList.length),
-  )
-}
-
-//
-
-var firstPartPasswordArray = function () {
-  var passwordArray = []
-
-  if (characterType.lowerCase === 'yes') {
-    passwordArray = passwordArray.push(randomlowerCaseLetters())
+  for (var i = 0; i < password.length; i++) {
+    eachCharacter = password.charAt(i)
+    if (eachChar == eachCharacter.toUpperCase()) {
+      return true
+    }
   }
-  if (characterType.upperCase === 'yes') {
-    passwordArray = passwordArray.push(randomUpperCaseLetters())
-  }
-  if (characterType.numbers === 'yes') {
-    passwordArray = passwordArray.push(randomNumber())
-  }
-  if (characterType.specialCharacter === 'yes') {
-    passwordArray = passwordArray.push(randomSpecialCharacter())
-  }
-  return passwordArray
 }
 
-var secondPartPasswordArray = function () {
-  var PasswordArrayTwo = []
-  for (var i = 0; i <= passwordLength - firstPartPasswordArray().length; i++) {
+var verifyForLowerCase = function (password) {
+
+  for (var i = 0; i < password.length; i++) {
+    eachCharacter = password.charAt(i)
+    if (eachChar == eachCharacter.toLowerCase()) {
+      return true
+    }
+  }
+}
+
+var verifySpecialCharacter = function (password) {
+
+  spChar = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
+  if (spChar.test(password)) {
+    return true
+  }
+}
+
+var checkCharacterTypeInScope = function (characterType) {
+  if (characterType === 'yes') {
+    return true
+  }
+}
+
+var generatePassword = function () {
+  for (var i = 0; i < passwordLength.length; i++) {
     var character = ''
     charactersInScope =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,-./:;<=>?@[]^_`{|}~'
-    var charactersLength = characters.length
-    character = characters.charAt(Math.floor(Math.random() * charactersLength))
-    PasswordArrayTwo = PasswordArrayTwo.push(character)
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
+    character += charactersInScope.charAt(
+      Math.floor(Math.random() * charactersInScope.length),
+    )
+
   }
 
-  return PasswordArrayTwo
-}
-
-//concatenate 2 arrays
-var concatPasswordArray = function () {
-  var passwordArray = firstPartPasswordArray.concat(secondPartPasswordArray)
-  return passwordArray
-}
-
-//suffle array
-var shuffle = function () {
-  var array = concatPasswordArray()
-
-  for (var i = array.length - 1; i > 0; i--) {
-    //generate a random number
-    var j = Math.floor(Math.random() * (i + 1))
-    var temp = array[i]
-    array[i] = array[j]
-    array[j] = temp
+  if (checkCharacterTypeInScope(characterType.lowerCase) == true) {
+    while(verifyForLowerCase(password)==false){
+        generatePassword()
   }
-  return array
-}
 
-//convert an array to string
-var arrayToString = function () {
-  var newArray = shuffle()
-  var finalString = newArray.join()
+  if (checkCharacterTypeInScope(characterType.upperCase) == true) {
+    while(verifyForUpperCase()==false){
+        generatePassword()
+  }
+  if (checkCharacterTypeInScope(characterType.numbers) == true) {
+    while(verifyForNumeric()==false){
+        generatePassword()
+  }
+  return character
 }
-
 passwordLength()
 characterType()
+generatePassword()
 
-//Get references to the #generate element
-var generateBtn = document.querySelector('#generate')
+// //Get references to the #generate element
+// var generateBtn = document.querySelector('#generate')
 
-//  Write password to the #password input
-function writePassword() {
-  var password = generatePassword()
-  var passwordText = document.querySelector('#password')
+// //  Write password to the #password input
+// function writePassword() {
+//   var password = generatePassword()
+//   var passwordText = document.querySelector('#password')
 
-  passwordText.value = password
-}
+//   passwordText.value = password
+// }
 
 // // Add event listener to generate button
-generateBtn.addEventListener('click', writePassword)
+// generateBtn.addEventListener('click', writePassword())
