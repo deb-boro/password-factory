@@ -33,6 +33,29 @@ var characterType = function () {
   ).toLowerCase
 }
 
+var passwordGenerator = function () {
+  for (var i = 0; i < passwordLength.length; i++) {
+    var character = ''
+    charactersInScope =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,-./:;<=>?@[]^_`{|}~'
+    character += charactersInScope.charAt(
+      Math.floor(Math.random() * charactersInScope.length),
+    )
+  }
+}
+
+var verifyForNumeric = function () {
+  var password = passwordGenerator()
+  for (var i = 0; i < password.length; i++) {
+    eachCharacter = password.charAt(i)
+    if (!isNaN(eachCharacter) == true) {
+      return true
+    }
+  }
+}
+
+var verifyForUpperCase = function () {}
+
 //using https://net-comber.com/charset.html to generate Random Numbers
 
 var randomNumber = function () {
@@ -85,10 +108,33 @@ var secondPartPasswordArray = function () {
 
   return PasswordArrayTwo
 }
-//concatenate 2 arrays and suffle the array and convert it into a string
-var generatePassword = function () {
+
+//concatenate 2 arrays
+var concatPasswordArray = function () {
   var passwordArray = firstPartPasswordArray.concat(secondPartPasswordArray)
+  return passwordArray
 }
+
+//suffle array
+var shuffle = function () {
+  var array = concatPasswordArray()
+
+  for (var i = array.length - 1; i > 0; i--) {
+    //generate a random number
+    var j = Math.floor(Math.random() * (i + 1))
+    var temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
+  }
+  return array
+}
+
+//convert an array to string
+var arrayToString = function () {
+  var newArray = shuffle()
+  var finalString = newArray.join()
+}
+
 passwordLength()
 characterType()
 
