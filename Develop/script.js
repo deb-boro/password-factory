@@ -1,6 +1,4 @@
 //  1. How many characters in your password ?
-alert('Welcome to the password generator factory application!!!')
-
 var passwordLength = function () {
   var lengthPassword = window.prompt(
     'Please enter the length of password you want to generate (it should be between 8 characters and no more than 128 characters). e.g. for password length 9 characters ENTER "9" in the textbox and PRESS "OK".',
@@ -58,97 +56,168 @@ var specialCharacter = function () {
   return specialCharacter
 }
 
-var checkCharacterTypeInScope = function (characterType) {
-  if (characterType === 'yes') {
-    return true
-  }
-}
+// var checkCharacterTypeInScope = function (characterType) {
+//   if (characterType === 'yes') {
+//     return true
+//   }
+// }
 
-var verifyForNumeric = function (password) {
-  for (var i = 0; i < password.length; i++) {
-    eachCharacter = password.charAt(i)
-    if (!isNaN(eachCharacter) == true) {
-      return true
-    }
-  }
-}
+// var verifyForNumeric = function (password) {
+//   for (var i = 0; i < password.length; i++) {
+//     eachCharacter = password.charAt(i)
+//     if (!isNaN(eachCharacter) == true) {
+//       return true
+//     }
+//   }
+// }
 
-var verifyForUpperCase = function (password) {
-  for (var i = 0; i < password.length; i++) {
-    eachCharacter = password.charAt(i)
-    if (eachCharacter === eachCharacter.toUpperCase()) {
-      return true
-    }
-  }
-}
+// var verifyForUpperCase = function (password) {
+//   for (var i = 0; i < password.length; i++) {
+//     eachCharacter = password.charAt(i)
+//     if (eachCharacter === eachCharacter.toUpperCase()) {
+//       return true
+//     }
+//   }
+// }
 
-var verifyForLowerCase = function (password) {
-  for (var i = 0; i < password.length; i++) {
-    eachCharacter = password.charAt(i)
-    if (eachCharacter === eachCharacter.toLowerCase()) {
-      return true
-    }
-  }
-}
+// var verifyForLowerCase = function (password) {
+//   for (var i = 0; i < password.length; i++) {
+//     eachCharacter = password.charAt(i)
+//     if (eachCharacter === eachCharacter.toLowerCase()) {
+//       return true
+//     }
+//   }
+// }
 
-var verifySpecialCharacter = function (password) {
-  spChar = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
-  return spChar.test(password)
-}
+// var verifySpecialCharacter = function (password) {
+//   spChar = "/!:;<=>?@[]^_#$%&'()*+,-./`{|}~"
+//   return spChar.test(password)
+// }
 
-var generatePassword = function () {
-  var passwordSize = passwordLength()
-  debugger
-  var character = ''
-  for (var i = 0; i < passwordSize; i++) {
-    charactersInScope =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
-    character += charactersInScope.charAt(
-      Math.floor(Math.random() * charactersInScope.length),
-    )
-  }
+// var passwordGenerator = function (
+//   passwordSize,
+//   isLowerCase,
+//   isUpperCase,
+//   isNumeric,
+//   isSpecialCharacter,
+// ) {
+//   debugger
+//   var charactersInScope = ''
+//   var character = ''
 
-  if (checkCharacterTypeInScope(lowerCase()) == true) {
-    while (verifyForLowerCase(character) == false) {
-      generatePassword()
-    }
-  } else {
-    while (verifyForLowerCase(character) == true) {
-      generatePassword()
-    }
-  }
+//   for (var i = 0; i < passwordSize; i++) {
+//     charactersInScope =
+//       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
+//     character += charactersInScope.charAt(
+//       Math.floor(Math.random() * charactersInScope.length),
+//     )
+//   }
 
-  if (checkCharacterTypeInScope(upperCase()) == true) {
-    while (verifyForUpperCase(character) == false) {
-      generatePassword()
-    }
-  } else {
-    while (verifyForUpperCase(character) == true) {
-      generatePassword()
-    }
-  }
-  if (checkCharacterTypeInScope(number()) == true) {
-    while (verifyForNumeric(character) == false) {
-      generatePassword()
-    }
-  } else {
-    while (verifyForNumeric(character) == true) {
-      generatePassword()
-    }
-  }
-  if (checkCharacterTypeInScope(specialCharacter()) == true) {
-    while (verifySpecialCharacter(character) == false) {
-      generatePassword()
-    }
-  } else {
-    while (verifySpecialCharacter(character) == true) {
-      generatePassword()
-    }
-  }
+//   if (checkCharacterTypeInScope(isLowerCase) == true) {
+//     while (verifyForLowerCase(character) == false) {
+//       passwordGenerator(
+//         passwordSize,
+//         isLowerCase,
+//         isUpperCase,
+//         isNumeric,
+//         isSpecialCharacter,
+//       )
+//     }
+//   } else {
+//     while (verifyForLowerCase(character) == true) {
+//       passwordGenerator(
+//         passwordSize,
+//         isLowerCase,
+//         isUpperCase,
+//         isNumeric,
+//         isSpecialCharacter,
+//       )
+//     }
+//   }
 
-  console.log('Password is : ' + character)
-  return character
-}
+//   if (checkCharacterTypeInScope(isUpperCase) == true) {
+//     while (verifyForUpperCase(character) == false) {
+//       passwordGenerator(
+//         ppasswordSize,
+//         isLowerCase,
+//         isUpperCase,
+//         isNumeric,
+//         isSpecialCharacter,
+//       )
+//     }
+//   } else {
+//     while (verifyForUpperCase(character) == true) {
+//       passwordGenerator(
+//         passwordSize,
+//         isLowerCase,
+//         isUpperCase,
+//         isNumeric,
+//         isSpecialCharacter,
+//       )
+//     }
+//   }
+//   if (checkCharacterTypeInScope(isNumeric) == true) {
+//     while (verifyForNumeric(character) == false) {
+//       passwordGenerator(
+//         passwordSize,
+//         isLowerCase,
+//         isUpperCase,
+//         isNumeric,
+//         isSpecialCharacter,
+//       )
+//     }
+//   } else {
+//     while (verifyForNumeric(character) == true) {
+//       passwordGenerator(
+//         passwordSize,
+//         isLowerCase,
+//         isUpperCase,
+//         isNumeric,
+//         isSpecialCharacter,
+//       )
+//     }
+//   }
+//   if (checkCharacterTypeInScope(isSpecialCharacter) == true) {
+//     while (verifySpecialCharacter(character) == false) {
+//       passwordGenerator(
+//         passwordSize,
+//         isLowerCase,
+//         isUpperCase,
+//         isNumeric,
+//         isSpecialCharacter,
+//       )
+//     }
+//   } else {
+//     while (verifySpecialCharacter(character) == true) {
+//       passwordGenerator(
+//         passwordSize,
+//         isLowerCase,
+//         isUpperCase,
+//         isNumeric,
+//         isSpecialCharacter,
+//       )
+//     }
+//   }
+
+//   console.log('Password is : ' + character)
+//   return character
+// }
+
+// var generatePassword = function () {
+//   debugger
+//   var passwordSize = passwordLength()
+//   var isLowerCase = lowerCase()
+//   var isUpperCase = upperCase()
+//   var isNumeric = number()
+//   var isSpecialCharacter = specialCharacter()
+//   return passwordGenerator(
+//     passwordSize,
+//     isLowerCase,
+//     isUpperCase,
+//     isNumeric,
+//     isSpecialCharacter,
+//   )
+// }
 
 // //Get references to the #generate element
 var generateBtn = document.querySelector('#generate')
