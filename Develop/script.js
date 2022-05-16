@@ -1,7 +1,7 @@
-//  1. How many characters in your password ?
+// Obtain input for password length
 var passwordLength = function () {
   var lengthPassword = window.prompt(
-    'Please enter the length of password you want to generate (it should be between 8 characters and no more than 128 characters). e.g. for password length 9 characters ENTER "9" in the textbox and PRESS "OK".',
+    'ENTER the length of password btw 8 to 128 characters. e.g. for password length 9 characters ENTER "9" in the textbox and PRESS "OK".',
   )
 
   if (
@@ -18,7 +18,7 @@ var passwordLength = function () {
   return lengthPassword
 }
 
-//2. will there be lowercase, uppercase, numbers and special characters ?
+//Obtain input for lowercase, uppercase, numbers and special characters
 var lowerCase = function () {
   var lowerCaseCharacter = window
     .prompt(
@@ -56,33 +56,7 @@ var specialCharacter = function () {
   return specialCharacters
 }
 
-// generating random number using https://net-comber.com/charset.html
-var getRandomNumber = function () {
-  return String.fromCharCode(Math.floor(Math.random() * 10 + 48))
-}
-var getRandomUpperCharacter = function () {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 65))
-}
-var getRandomLowerCharacter = function () {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 97))
-}
-var getSpecialCharacter = function () {
-  var spCharacter = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
-  return String.charAt(Math.floor(Math.random() * (30 + 1)))
-}
-
-var removeArrayElement = function (array) {
-  var i = 0
-  while (i < array.length) {
-    if (array[i] === false) {
-      array.splice(i, 1)
-    } else {
-      i++
-    }
-  }
-  return array
-}
-
+//3. Generates password based on the character type and password length input
 var passwordGenerator = function (
   characterLength,
   lowerCaseLetters,
@@ -90,6 +64,7 @@ var passwordGenerator = function (
   numeric,
   spCharacter,
 ) {
+  // Displaying the character type option selected by user
   alert(
     'Your choices are : character length - ' +
       characterLength +
@@ -107,6 +82,7 @@ var passwordGenerator = function (
       spCharacter,
   )
 
+  // initializing the password strings in scope for different character type
   var passwordLength = characterLength
   var upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   var lowerCase = 'abcdefghijklmnopqrstuvwxyz'
@@ -114,83 +90,49 @@ var passwordGenerator = function (
   var specialCharacter = '!@#$%^&*()_+~`|}{[]:;?>"<,./-=' //total =30
   var password = ''
   var character = ''
-  debugger
+
+  //while loop to generate the password string
   while (password.length < passwordLength) {
-    if (lowerCaseLetters === 'yes') {
+    if (lowerCaseLetters === 'yes' && character.length < passwordLength) {
       character += lowerCase.charAt(Math.floor(Math.random() * (26 + 1)))
     }
-    if (upperCaseLetters === 'yes') {
+    if (upperCaseLetters === 'yes' && character.length < passwordLength) {
       character += upperCase.charAt(Math.floor(Math.random() * (26 + 1)))
     }
-    if (numeric === 'yes') {
+    if (numeric === 'yes' && character.length < passwordLength) {
       character += numericValue.charAt(Math.floor(Math.random() * (10 + 1)))
     }
-    if (spCharacter === 'yes') {
+    if (spCharacter === 'yes' && character.length < passwordLength) {
       character += specialCharacter.charAt(Math.floor(Math.random() * (30 + 1)))
     }
     password = character
   }
 
   return password
-
-  // if (lowerCaseLetters === 'yes') {
-  //   var isLowerCase = true
-  // } else {
-  //   isLowerCase = false
-  // }
-
-  // if (upperCaseLetters === 'yes') {
-  //   var isUpperCase = true
-  // } else {
-  //   var isUpperCase = false
-  // }
-
-  // if (numeric === 'yes') {
-  //   var isNumeric = true
-  // } else {
-  //   var isNumeric = false
-  // }
-
-  // if (spCharacter === 'yes') {
-  //   var isSpecialCharacter = true
-  // } else {
-  //   isSpecialCharacter = false
-  // }
-
-  // //initial password variable
-  // var generatedPassword = ''
-  // //create an array of key and value for each type - 'true' and 'false'
-  // var typeArray = [isLowerCase, isUpperCase, isNumeric, isSpecialCharacter]
-
-  // console.log(typeArray)
-
-  // console.log(removeArrayElement(typeArray))
-
-  // var newArray = removeArrayElement(typeArray)
-
-  // // countType for counting only the true values
-  // var countType = isLowerCase + isNumeric + isSpecialCharacter + isUpperCase
 }
 
+//Alert added in case user says no to all character type
 var validateCharTypeInput = function () {
   alert('you have to say YES/yes to atleast one character type!!')
 }
 
+//2. Capture character type input and password
 var getCharacterType = function (characterLength) {
   var charLength = characterLength
-  var lowerCaseLetters = lowerCase()
+  var lowerCaseLetters = lowerCase() // input for character type
   var upperCaseLetters = upperCase()
   var spCharacter = specialCharacter()
   var numeric = number()
 
+  //verify at least one character type is selected by user
   if (
     lowerCaseLetters === 'no' &&
     upperCaseLetters === 'no' &&
     numeric === 'no' &&
     spCharacter === 'no'
   ) {
-    validateCharTypeInput()
-    getCharacterType(charLength)
+    validateCharTypeInput() //alert for not selecting any character type option
+    getCharacterType(charLength) // recalling the function to capturing the input again
   } else {
     password = passwordGenerator(
       charLength,
@@ -203,14 +145,16 @@ var getCharacterType = function (characterLength) {
   return password
 }
 
+// 1. Generate Password main function
 var generatePassword = function () {
-  var characterLength = passwordLength()
-  var password = getCharacterType(characterLength)
+  var characterLength = passwordLength() //capture input for character length
+  var password = getCharacterType(characterLength) //call function for character type input and password
 
   console.log('.....and the password is : ' + password)
   return password
 }
 
+//*****************************cloned starter code *******************************//
 var generateBtn = document.querySelector('#generate')
 
 //  Write password to the #password input
@@ -222,3 +166,4 @@ function writePassword() {
 
 // // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword())
+//******************************************************************************** */
