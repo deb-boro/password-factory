@@ -20,215 +20,177 @@ var passwordLength = function () {
 
 //2. will there be lowercase, uppercase, numbers and special characters ?
 var lowerCase = function () {
-  var lowerCase = window
+  var lowerCaseCharacter = window
     .prompt(
       'Do you want to include lowercase in your password e.g. abcdefgh- answer yes or no',
     )
     .toLowerCase()
-  return lowerCase
+  return lowerCaseCharacter
 }
 
 var upperCase = function () {
-  var upperCase = window
+  var upperCaseCharacter = window
     .prompt(
       'Do you want to include uppercase in your password e.g. ABCDEFGH - answer YES/yes or NO/no',
     )
     .toLowerCase()
-  return upperCase
+  return upperCaseCharacter
 }
 
 var number = function () {
-  var numbers = window
+  var numeric = window
     .prompt(
       'Do you want to include numbers in your password e.g. 01234567 - answer YES/yes or NO/no',
     )
     .toLowerCase()
 
-  return numbers
+  return numeric
 }
 
 var specialCharacter = function () {
-  var specialCharacter = window
+  var specialCharacters = window
     .prompt(
       'Do you want to include special character in your password e.g. !#$%&()*+,- - etc. answer YES/yes or NO/no',
     )
     .toLowerCase()
-  return specialCharacter
+  return specialCharacters
 }
 
-// var checkCharacterTypeInScope = function (characterType) {
-//   if (characterType === 'yes') {
-//     return true
-//   }
-// }
+// generating random number using https://net-comber.com/charset.html
+var getRandomNumber = function () {
+  return String.fromCharCode(Math.floor(Math.random() * 10 + 48))
+}
+var getRandomUpperCharacter = function () {
+  return String.fromCharCode(Math.floor(Math.random() * 26 + 65))
+}
+var getRandomLowerCharacter = function () {
+  return String.fromCharCode(Math.floor(Math.random() * 26 + 97))
+}
+var getSpecialCharacter = function () {
+  var spCharacter = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
+  return String.charAt(Math.floor(Math.random() * (30 + 1)))
+}
 
-// var verifyForNumeric = function (password) {
-//   for (var i = 0; i < password.length; i++) {
-//     eachCharacter = password.charAt(i)
-//     if (!isNaN(eachCharacter) == true) {
-//       return true
-//     }
-//   }
-// }
+var removeArrayElement = function (array) {
+  var i = 0
+  while (i < array.length) {
+    if (array[i] === false) {
+      array.splice(i, 1)
+    } else {
+      i++
+    }
+  }
+  return array
+}
 
-// var verifyForUpperCase = function (password) {
-//   for (var i = 0; i < password.length; i++) {
-//     eachCharacter = password.charAt(i)
-//     if (eachCharacter === eachCharacter.toUpperCase()) {
-//       return true
-//     }
-//   }
-// }
+var passwordGenerator = function (
+  characterLength,
+  lowerCaseLetters,
+  upperCaseLetters,
+  numeric,
+  spCharacter,
+) {
+  alert(
+    'Your choices are : character length - ' +
+      characterLength +
+      ',' +
+      ' lower case - ' +
+      lowerCaseLetters +
+      ',' +
+      ' upper case - ' +
+      upperCaseLetters +
+      ',' +
+      ' numeric- ' +
+      numeric +
+      ',' +
+      ' and Special Character- ' +
+      spCharacter,
+  )
 
-// var verifyForLowerCase = function (password) {
-//   for (var i = 0; i < password.length; i++) {
-//     eachCharacter = password.charAt(i)
-//     if (eachCharacter === eachCharacter.toLowerCase()) {
-//       return true
-//     }
-//   }
-// }
+  if (lowerCaseLetters === 'yes') {
+    var isLowerCase = true
+  } else {
+    isLowerCase = false
+  }
 
-// var verifySpecialCharacter = function (password) {
-//   spChar = "/!:;<=>?@[]^_#$%&'()*+,-./`{|}~"
-//   return spChar.test(password)
-// }
+  if (upperCaseLetters === 'yes') {
+    var isUpperCase = true
+  } else {
+    var isUpperCase = false
+  }
 
-// var passwordGenerator = function (
-//   passwordSize,
-//   isLowerCase,
-//   isUpperCase,
-//   isNumeric,
-//   isSpecialCharacter,
-// ) {
-//   debugger
-//   var charactersInScope = ''
-//   var character = ''
+  if (numeric === 'yes') {
+    var isNumeric = true
+  } else {
+    var isNumeric = false
+  }
 
-//   for (var i = 0; i < passwordSize; i++) {
-//     charactersInScope =
-//       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/!#$%&'()*+,-./:;<=>?@[]^_`{|}~"
-//     character += charactersInScope.charAt(
-//       Math.floor(Math.random() * charactersInScope.length),
-//     )
-//   }
+  if (spCharacter === 'yes') {
+    var isSpecialCharacter = true
+  } else {
+    isSpecialCharacter = false
+  }
 
-//   if (checkCharacterTypeInScope(isLowerCase) == true) {
-//     while (verifyForLowerCase(character) == false) {
-//       passwordGenerator(
-//         passwordSize,
-//         isLowerCase,
-//         isUpperCase,
-//         isNumeric,
-//         isSpecialCharacter,
-//       )
-//     }
-//   } else {
-//     while (verifyForLowerCase(character) == true) {
-//       passwordGenerator(
-//         passwordSize,
-//         isLowerCase,
-//         isUpperCase,
-//         isNumeric,
-//         isSpecialCharacter,
-//       )
-//     }
-//   }
+  //initial password variable
+  var generatedPassword = ''
+  //create an array of key and value for each type - 'true' and 'false'
+  var typeArray = [isLowerCase, isUpperCase, isNumeric, isSpecialCharacter]
 
-//   if (checkCharacterTypeInScope(isUpperCase) == true) {
-//     while (verifyForUpperCase(character) == false) {
-//       passwordGenerator(
-//         ppasswordSize,
-//         isLowerCase,
-//         isUpperCase,
-//         isNumeric,
-//         isSpecialCharacter,
-//       )
-//     }
-//   } else {
-//     while (verifyForUpperCase(character) == true) {
-//       passwordGenerator(
-//         passwordSize,
-//         isLowerCase,
-//         isUpperCase,
-//         isNumeric,
-//         isSpecialCharacter,
-//       )
-//     }
-//   }
-//   if (checkCharacterTypeInScope(isNumeric) == true) {
-//     while (verifyForNumeric(character) == false) {
-//       passwordGenerator(
-//         passwordSize,
-//         isLowerCase,
-//         isUpperCase,
-//         isNumeric,
-//         isSpecialCharacter,
-//       )
-//     }
-//   } else {
-//     while (verifyForNumeric(character) == true) {
-//       passwordGenerator(
-//         passwordSize,
-//         isLowerCase,
-//         isUpperCase,
-//         isNumeric,
-//         isSpecialCharacter,
-//       )
-//     }
-//   }
-//   if (checkCharacterTypeInScope(isSpecialCharacter) == true) {
-//     while (verifySpecialCharacter(character) == false) {
-//       passwordGenerator(
-//         passwordSize,
-//         isLowerCase,
-//         isUpperCase,
-//         isNumeric,
-//         isSpecialCharacter,
-//       )
-//     }
-//   } else {
-//     while (verifySpecialCharacter(character) == true) {
-//       passwordGenerator(
-//         passwordSize,
-//         isLowerCase,
-//         isUpperCase,
-//         isNumeric,
-//         isSpecialCharacter,
-//       )
-//     }
-//   }
+  console.log(typeArray)
 
-//   console.log('Password is : ' + character)
-//   return character
-// }
+  console.log(removeArrayElement(typeArray))
 
-// var generatePassword = function () {
-//   debugger
-//   var passwordSize = passwordLength()
-//   var isLowerCase = lowerCase()
-//   var isUpperCase = upperCase()
-//   var isNumeric = number()
-//   var isSpecialCharacter = specialCharacter()
-//   return passwordGenerator(
-//     passwordSize,
-//     isLowerCase,
-//     isUpperCase,
-//     isNumeric,
-//     isSpecialCharacter,
-//   )
-// }
+  var newArray = removeArrayElement(typeArray)
 
-// //Get references to the #generate element
-var generateBtn = document.querySelector('#generate')
+  // countType for counting only the true values
+  var countType = isLowerCase + isNumeric + isSpecialCharacter + isUpperCase
+}
+
+var validateCharTypeInput = function () {
+  alert('you have to say YES/yes to atleast one character type!!')
+}
+
+var getCharacterType = function (characterLength) {
+  var charLength = characterLength
+  var lowerCaseLetters = lowerCase()
+  var upperCaseLetters = upperCase()
+  var spCharacter = specialCharacter()
+  var numeric = number()
+
+  if (
+    lowerCaseLetters === 'no' &&
+    upperCaseLetters === 'no' &&
+    numeric === 'no' &&
+    spCharacter === 'no'
+  ) {
+    validateCharTypeInput()
+    getCharacterType(charLength)
+  } else {
+    passwordGenerator(
+      characterLength,
+      lowerCaseLetters,
+      upperCaseLetters,
+      numeric,
+      spCharacter,
+    )
+  }
+}
+var generatePassword = function () {
+  var characterLength = passwordLength()
+  getCharacterType(characterLength)
+}
+
+generatePassword()
+
+// //var generateBtn = document.querySelector('#generate')
+// document.getElementById('generate').addEventListener('click', writePassword())
 
 // //  Write password to the #password input
-function writePassword() {
-  var password = generatePassword()
-  var passwordText = document.querySelector('#password')
-
-  passwordText.value = password
-}
+// function writePassword() {
+//   var password = generatePassword()
+//   var passwordText = document.querySelector('#password')
+//   passwordText.value = password
+// }
 
 // // Add event listener to generate button
-generateBtn.addEventListener('click', writePassword())
+//generateBtn.addEventListener('click', writePassword())
