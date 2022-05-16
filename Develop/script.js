@@ -107,43 +107,69 @@ var passwordGenerator = function (
       spCharacter,
   )
 
-  if (lowerCaseLetters === 'yes') {
-    var isLowerCase = true
-  } else {
-    isLowerCase = false
+  var passwordLength = characterLength
+  var upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  var lowerCase = 'abcdefghijklmnopqrstuvwxyz'
+  var numericValue = '0123456789'
+  var specialCharacter = '!@#$%^&*()_+~`|}{[]:;?>"<,./-=' //total =30
+  var password = ''
+  var character = ''
+  debugger
+  while (password.length < passwordLength) {
+    if (lowerCaseLetters === 'yes') {
+      character += lowerCase.charAt(Math.floor(Math.random() * (26 + 1)))
+    }
+    if (upperCaseLetters === 'yes') {
+      character += upperCase.charAt(Math.floor(Math.random() * (26 + 1)))
+    }
+    if (numeric === 'yes') {
+      character += numericValue.charAt(Math.floor(Math.random() * (10 + 1)))
+    }
+    if (spCharacter === 'yes') {
+      character += specialCharacter.charAt(Math.floor(Math.random() * (30 + 1)))
+    }
+    password = character
   }
 
-  if (upperCaseLetters === 'yes') {
-    var isUpperCase = true
-  } else {
-    var isUpperCase = false
-  }
+  return password
 
-  if (numeric === 'yes') {
-    var isNumeric = true
-  } else {
-    var isNumeric = false
-  }
+  // if (lowerCaseLetters === 'yes') {
+  //   var isLowerCase = true
+  // } else {
+  //   isLowerCase = false
+  // }
 
-  if (spCharacter === 'yes') {
-    var isSpecialCharacter = true
-  } else {
-    isSpecialCharacter = false
-  }
+  // if (upperCaseLetters === 'yes') {
+  //   var isUpperCase = true
+  // } else {
+  //   var isUpperCase = false
+  // }
 
-  //initial password variable
-  var generatedPassword = ''
-  //create an array of key and value for each type - 'true' and 'false'
-  var typeArray = [isLowerCase, isUpperCase, isNumeric, isSpecialCharacter]
+  // if (numeric === 'yes') {
+  //   var isNumeric = true
+  // } else {
+  //   var isNumeric = false
+  // }
 
-  console.log(typeArray)
+  // if (spCharacter === 'yes') {
+  //   var isSpecialCharacter = true
+  // } else {
+  //   isSpecialCharacter = false
+  // }
 
-  console.log(removeArrayElement(typeArray))
+  // //initial password variable
+  // var generatedPassword = ''
+  // //create an array of key and value for each type - 'true' and 'false'
+  // var typeArray = [isLowerCase, isUpperCase, isNumeric, isSpecialCharacter]
 
-  var newArray = removeArrayElement(typeArray)
+  // console.log(typeArray)
 
-  // countType for counting only the true values
-  var countType = isLowerCase + isNumeric + isSpecialCharacter + isUpperCase
+  // console.log(removeArrayElement(typeArray))
+
+  // var newArray = removeArrayElement(typeArray)
+
+  // // countType for counting only the true values
+  // var countType = isLowerCase + isNumeric + isSpecialCharacter + isUpperCase
 }
 
 var validateCharTypeInput = function () {
@@ -166,31 +192,33 @@ var getCharacterType = function (characterLength) {
     validateCharTypeInput()
     getCharacterType(charLength)
   } else {
-    passwordGenerator(
-      characterLength,
+    password = passwordGenerator(
+      charLength,
       lowerCaseLetters,
       upperCaseLetters,
       numeric,
       spCharacter,
     )
   }
+  return password
 }
+
 var generatePassword = function () {
   var characterLength = passwordLength()
-  getCharacterType(characterLength)
+  var password = getCharacterType(characterLength)
+
+  console.log('.....and the password is : ' + password)
+  return password
 }
 
-generatePassword()
+var generateBtn = document.querySelector('#generate')
 
-// //var generateBtn = document.querySelector('#generate')
-// document.getElementById('generate').addEventListener('click', writePassword())
-
-// //  Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword()
-//   var passwordText = document.querySelector('#password')
-//   passwordText.value = password
-// }
+//  Write password to the #password input
+function writePassword() {
+  var password = generatePassword()
+  var passwordText = document.querySelector('#password')
+  passwordText.value = password
+}
 
 // // Add event listener to generate button
-//generateBtn.addEventListener('click', writePassword())
+generateBtn.addEventListener('click', writePassword())
