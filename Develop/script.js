@@ -108,7 +108,15 @@ var passwordGenerator = function (
     password = character
   }
 
-  return password
+  var a = password.split('')
+
+  for (var i = 0; i < a.length; i++) {
+    var j = Math.floor(Math.random() * (i + 1))
+    var temp = a[i]
+    a[i] = a[j]
+    a[j] = temp
+  }
+  return a.join('')
 }
 
 //Alert added in case user says no to all character type
