@@ -22,7 +22,7 @@ var passwordLength = function () {
 var lowerCase = function () {
   var lowerCaseCharacter = window
     .prompt(
-      'Do you want to include lowercase in your password e.g. abcdefgh- answer yes or no',
+      'Do you want to include lowercase in your password e.g. abcdefgh- answer YES/yes or No/no',
     )
     .toLowerCase()
   return lowerCaseCharacter
